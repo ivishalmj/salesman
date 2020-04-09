@@ -1,0 +1,48 @@
+<html>
+    <head></head>
+    <body></body>
+    <script>
+    var data_arr={
+        jaipur:[2500,4000,35000],
+        pune:[4000,6000,3500],
+        banglore:[2000,4000,2500]
+    };
+    var destinationArray=["Delhi","kerla","Mumbai"];
+    finalArray=[];excludeSalesPerson=[];
+
+    let i=0;
+    for (var property in data_arr) {
+        if (data_arr.hasOwnProperty(property)) {
+            i=0;
+            let minimum_cost=Math.min(...data_arr[property]);
+            let indexOfminimumCost =data_arr[property].indexOf(minimum_cost);
+
+            //comparing if above minimum cost is greater than for any other salesman for same location
+            //console.log("parent property "+ property);
+            for(var pro in data_arr){
+                if(pro != property ){
+                    if(minimum_cost > data_arr[pro][indexOfminimumCost] && excludeSalesPerson.indexOf(pro)==-1){
+                        minimum_cost=data_arr[pro][indexOfminimumCost];
+                        finalArray.push({salesperson:pro,destination:destinationArray[indexOfminimumCost],cost:minimum_cost});
+                        excludeSalesPerson.push(pro);
+                        //start:-static code
+                        let max=Math.max(...data_arr[pro]);let maxIndex=data_arr[pro].indexOf(max);
+                        finalArray.push({salesperson:property,destination:destinationArray[maxIndex],cost:max});
+                        //end:-static code
+                        i++;
+                        
+                    }
+                }
+            }
+            if(i==0 ){
+                finalArray.push({salesperson:property,destination:destinationArray[indexOfminimumCost],cost:minimum_cost})
+                  
+            }
+
+    }
+}
+finalArray.pop();
+console.log(finalArray)
+    
+    </script>
+</html>
